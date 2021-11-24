@@ -92,7 +92,8 @@ public class MainActivity extends AppCompatActivity {
                         startActivity(xeOto);
                         break;
                     case 2:
-                        Intent xeMay = new Intent(getApplicationContext(),XeMayActivity.class);
+                        Intent xeMay = new Intent(getApplicationContext(),XeOtoActivity.class);
+                        xeMay.putExtra("loai",2);
                         startActivity(xeMay);
                         break;
 

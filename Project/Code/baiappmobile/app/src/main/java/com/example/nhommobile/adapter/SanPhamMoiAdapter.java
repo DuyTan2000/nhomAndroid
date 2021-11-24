@@ -3,6 +3,7 @@ package com.example.nhommobile.adapter;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +14,9 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.nhommobile.Interface.ItemClickListener;
 import com.example.nhommobile.R;
+import com.example.nhommobile.activity.ChiTietActivity;
 import com.example.nhommobile.model.SanPhamMoi;
 
 import java.text.DecimalFormat;
@@ -44,6 +47,17 @@ public class SanPhamMoiAdapter extends RecyclerView.Adapter<SanPhamMoiAdapter.My
         holder.txtgia.setText("Giá:" + decimalFormat.format(Double.parseDouble(sanPhamMoi.getGiasp()) )+ "Vnd");
         Glide.with(context).load(sanPhamMoi.getHinhanh()).into(holder.imghinhanh);
 
+        holder.setItemClickListener(new ItemClickListener() {
+            @Override
+            public void onClick(View view, int pos, boolean isLongClick) {
+                if (!isLongClick){
+                    Intent intent = new Intent(context, ChiTietActivity.class);
+                    intent.putExtra("chitiet",sanPhamMoi);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    context.startActivity(intent);
+                }
+            }
+        });
     }
 
     @Override
@@ -52,9 +66,10 @@ public class SanPhamMoiAdapter extends RecyclerView.Adapter<SanPhamMoiAdapter.My
     }
 
 
-    public class MyViewHolder extends RecyclerView.ViewHolder{
+    public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView txtgia,txtten;
         ImageView imghinhanh;
+        private ItemClickListener itemClickListener;
 
 
         public MyViewHolder(@NonNull View itemView) {
@@ -62,7 +77,16 @@ public class SanPhamMoiAdapter extends RecyclerView.Adapter<SanPhamMoiAdapter.My
             txtgia = itemView.findViewById(R.id.itemsp_gia);
             txtten= itemView.findViewById(R.id.itemsp_ten);
             imghinhanh = itemView.findViewById(R.id.itemsp_image);
+            itemView.setOnClickListener(this);
+        }
 
+        public void setItemClickListener(ItemClickListener itemClickListener) {
+            this.itemClickListener = itemClickListener;
+        }
+
+        @Override
+        public void onClick(View view) {
+            itemClickListener.onClick(view,getAdapterPosition(),false);
         }
     }
 }

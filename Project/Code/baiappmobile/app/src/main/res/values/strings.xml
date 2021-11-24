@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">nhommobile</string>
+    <string name="gia_500000">Gia: 500000</string>
+    <string name="them_vao_gio_hang">Them vao gio hang</string>
 </resources>
