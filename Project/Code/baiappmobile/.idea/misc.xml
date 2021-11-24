@@ -7,8 +7,10 @@
         <entry key="..\:/Androi_Studio_BaiTap/baiappmobile/app/src/main/res/drawable/ic_launcher_background.xml" value="0.14537037037037037" />
         <entry key="..\:/Androi_Studio_BaiTap/baiappmobile/app/src/main/res/drawable/ic_media_24.xml" value="0.14537037037037037" />
         <entry key="..\:/Androi_Studio_BaiTap/baiappmobile/app/src/main/res/layout/activity_main.xml" value="0.22" />
+        <entry key="..\:/Androi_Studio_BaiTap/baiappmobile/app/src/main/res/layout/activity_xe_oto.xml" value="0.1" />
         <entry key="..\:/Androi_Studio_BaiTap/baiappmobile/app/src/main/res/layout/item_sanpham.xml" value="0.4466666666666667" />
         <entry key="..\:/Androi_Studio_BaiTap/baiappmobile/app/src/main/res/layout/item_sp_moi.xml" value="0.22" />
+        <entry key="..\:/Androi_Studio_BaiTap/baiappmobile/app/src/main/res/layout/item_xeoto.xml" value="0.22" />
       </map>
     </option>
   </component>
