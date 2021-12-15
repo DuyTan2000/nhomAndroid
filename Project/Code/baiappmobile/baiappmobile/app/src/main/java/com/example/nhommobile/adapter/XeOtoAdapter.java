@@ -33,9 +33,6 @@ public class XeOtoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     }
 
 
-
-
-
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {

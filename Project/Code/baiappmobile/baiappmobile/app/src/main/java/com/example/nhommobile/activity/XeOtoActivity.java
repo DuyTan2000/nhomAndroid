@@ -44,7 +44,6 @@ public class XeOtoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_xe_oto);
         apiBanHang = RetrofitClient.getInstance(Utils.BASE_URL).create(ApiBanHang.class);
-
         loai = getIntent().getIntExtra("loai",1);
         ThamChieu();
         ActionToolBar();
