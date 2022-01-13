@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -31,6 +32,7 @@ import com.example.nhommobile.retrofit.ApiBanHang;
 import com.example.nhommobile.retrofit.RetrofitClient;
 import com.example.nhommobile.utils.Utils;
 import com.google.android.material.navigation.NavigationView;
+import com.nex3z.notificationbadge.NotificationBadge;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,7 +42,6 @@ import io.reactivex.rxjava3.disposables.CompositeDisposable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 
 public class MainActivity extends AppCompatActivity {
-
 
     Toolbar toolbar;
     ViewFlipper viewFlipper;
@@ -54,6 +55,9 @@ public class MainActivity extends AppCompatActivity {
     ApiBanHang apiBanHang;
     List<SanPhamMoi> mangSpMoi;
     SanPhamMoiAdapter spAdapter;
+    NotificationBadge badge;
+    FrameLayout frameLayout;
+    ImageView imgsearch;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,6 +100,10 @@ public class MainActivity extends AppCompatActivity {
                         xeMay.putExtra("loai",2);
                         startActivity(xeMay);
                         break;
+                    case 5:
+                        Intent donhang = new Intent(getApplicationContext(),XemDonActivity.class);
+                        startActivity(donhang);
+                        break;
 
                 }
             }
@@ -112,12 +120,10 @@ public class MainActivity extends AppCompatActivity {
                         mangSpMoi = sanPhamMoiModel.getResult();
                         spAdapter = new SanPhamMoiAdapter(getApplicationContext(),mangSpMoi);
                         recyclerViewManhinhchinh.setAdapter(spAdapter);
-
-
                     }
                 },
                 throwable -> {
-                    Toast.makeText(getApplicationContext(),"Khong ket noi duoc voi server"+ throwable.getMessage(),Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(),"Khong ket noi duoc voi du lieu tren server"+ throwable.getMessage(),Toast.LENGTH_LONG).show();
                 }
         ));
     }
@@ -173,6 +179,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void Thamchieumain() {
+        imgsearch = findViewById(R.id.imgsearch);
+
         toolbar = findViewById(R.id.toolbarmanhinhchinh);
         viewFlipper = findViewById(R.id.viewlippper);
         recyclerViewManhinhchinh = findViewById(R.id.recycleview);
@@ -185,15 +193,51 @@ public class MainActivity extends AppCompatActivity {
         listViewManhinhchinh = findViewById(R.id.listviewmanhinhchinh);
         drawerLayout = findViewById(R.id.drawerlayout);
 
+        badge = findViewById(R.id.menu_sl);
+        frameLayout = findViewById(R.id.framegiohang);
+
         mangloaixe = new ArrayList<>();
         mangSpMoi = new ArrayList<>();
 
         if (Utils.manggiohang == null){
             Utils.manggiohang = new ArrayList<>();
 
+        }else {
+            int totalItem = 0;
+            for (int i=0; i<Utils.manggiohang.size(); i++){
+                totalItem = totalItem + Utils.manggiohang.get(i).getSoluong();
+            }
+            badge.setText(String.valueOf(totalItem));
         }
 
+        frameLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent giohang = new Intent(getApplicationContext(), GioHangActivity.class);
+                startActivity(giohang);
+            }
+        });
 
+        imgsearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(),SearchActivity.class);
+                startActivity(intent);
+
+            }
+        });
+
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        int totalItem = 0;
+        for (int i=0; i<Utils.manggiohang.size(); i++){
+            totalItem = totalItem + Utils.manggiohang.get(i).getSoluong();
+        }
+        badge.setText(String.valueOf(totalItem));
     }
 
     private boolean isConnected(Context context){
